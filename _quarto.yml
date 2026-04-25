@@ -1,0 +1,13 @@
+project:
+    type: website
+    
+website:
+    title: "Portfolio 7 - Crash Data Analysis"
+    navbar:
+      left:
+        - href: Portfolio_7.ipynb
+          text: Portfolio_7
+
+format:
+    html:
+        theme: cosmos
