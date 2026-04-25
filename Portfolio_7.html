@@ -4786,7 +4786,14 @@ Percentage of rows deleted: 0.0859%</code></pre>
 <section id="filter-data-metropolitan-perth---filter-and-lambda" class="level3">
 <h3 class="anchored" data-anchor-id="filter-data-metropolitan-perth---filter-and-lambda">3.3 Filter Data: Metropolitan Perth - filter() and lambda</h3>
 <p>As this analysis focusses on the Perth Metropolitan region only, the data was therefore, filtered to “Metropolitan” region only.</p>
-<div id="b78baae0-db89-4aae-8ba8-0776d7f33bad" class="cell" data-execution_count="36">
+<div id="b78baae0-db89-4aae-8ba8-0776d7f33bad" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>metro_df <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x[<span class="st">&quot;RA_NAME&quot;</span>] <span class="op">==</span> <span class="st">&quot;Metropolitan&quot;</span>, df.to_dict(orient<span class="op">=</span><span class="st">&quot;records&quot;</span>)))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>metro_df <span class="op">=</span> pd.DataFrame(metro_df)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="st">&quot;No. fo rows BEFORE filtering:&quot;</span>, <span class="bu">len</span>(df))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="st">&quot;No. fo rows AFTER filtering:&quot;</span>, <span class="bu">len</span>(metro_df))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>metro_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>No. fo rows BEFORE filtering: 125765
 No. fo rows AFTER filtering: 105830</code></pre>
@@ -5100,10 +5107,10 @@ No. fo rows AFTER filtering: 105830</code></pre>
 <section id="crash-incidents-by-time-of-day" class="level4">
 <h4 class="anchored" data-anchor-id="crash-incidents-by-time-of-day">3.3.1 Crash incidents by time of day</h4>
 <div id="f578447f" class="cell" data-execution_count="37">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> metro_df.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>time_counts <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> acc, row: {<span class="op">**</span>acc,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        row[<span class="st">&#39;time_of_day&#39;</span>]: acc.get(row[<span class="st">&#39;time_of_day&#39;</span>], <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>},data,{})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> metro_df.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>time_counts <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> acc, row: {<span class="op">**</span>acc,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        row[<span class="st">&#39;time_of_day&#39;</span>]: acc.get(row[<span class="st">&#39;time_of_day&#39;</span>], <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>},data,{})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Based on the crash data, the afternoon peak period has the highest frequency of crashes, followed by the day off-peak and the morning peak periods.</p>
 <div id="e9857f15" class="cell" data-execution_count="38">
@@ -5167,10 +5174,10 @@ No. fo rows AFTER filtering: 105830</code></pre>
 <li>Fatal: Where death occurs within 30 days of crash event.</li>
 </ul>
 <div id="c21aa872" class="cell" data-execution_count="39">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> metro_df.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>severity_counts <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> acc, row: {<span class="op">**</span>acc, row[<span class="st">&#39;time_of_day&#39;</span>]: {<span class="op">**</span>acc.get(row[<span class="st">&#39;time_of_day&#39;</span>],{}), </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                row[<span class="st">&#39;SEVERITY&#39;</span>]: acc.get(row[<span class="st">&#39;time_of_day&#39;</span>], {}).get(row[<span class="st">&#39;SEVERITY&#39;</span>], <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>}}, data,{})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> metro_df.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>severity_counts <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> acc, row: {<span class="op">**</span>acc, row[<span class="st">&#39;time_of_day&#39;</span>]: {<span class="op">**</span>acc.get(row[<span class="st">&#39;time_of_day&#39;</span>],{}), </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                row[<span class="st">&#39;SEVERITY&#39;</span>]: acc.get(row[<span class="st">&#39;time_of_day&#39;</span>], {}).get(row[<span class="st">&#39;SEVERITY&#39;</span>], <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>}}, data,{})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="aeec98d4" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display" data-execution_count="40">
@@ -5251,9 +5258,9 @@ No. fo rows AFTER filtering: 105830</code></pre>
 <section id="crash-incidents-by-speed-limits" class="level4">
 <h4 class="anchored" data-anchor-id="crash-incidents-by-speed-limits">3.3.3 Crash incidents by speed limits</h4>
 <div id="9c46db73" class="cell" data-execution_count="41">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> metro_df.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>speed_counts <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> acc, row: {<span class="op">**</span>acc, row[<span class="st">&#39;max_speed&#39;</span>]: acc.get(row[<span class="st">&#39;max_speed&#39;</span>], <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>}, data, {})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> metro_df.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>speed_counts <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> acc, row: {<span class="op">**</span>acc, row[<span class="st">&#39;max_speed&#39;</span>]: acc.get(row[<span class="st">&#39;max_speed&#39;</span>], <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>}, data, {})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Based on the data, the highest number of crash incidents were recorded in the 110 km/h speed limit category.</p>
 <div id="6fca7fe8" class="cell" data-execution_count="42">
@@ -5335,10 +5342,10 @@ No. fo rows AFTER filtering: 105830</code></pre>
 <section id="aggregated-severity-by-speed-limits" class="level4">
 <h4 class="anchored" data-anchor-id="aggregated-severity-by-speed-limits">3.3.5 Aggregated severity by speed limits</h4>
 <div id="2fe72842" class="cell" data-execution_count="43">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> metro_df.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>severity_counts_speed <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> acc, row: {<span class="op">**</span>acc, row[<span class="st">&#39;max_speed&#39;</span>]: {<span class="op">**</span>acc.get(row[<span class="st">&#39;max_speed&#39;</span>],{}), </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                row[<span class="st">&#39;SEVERITY&#39;</span>]: acc.get(row[<span class="st">&#39;max_speed&#39;</span>], {}).get(row[<span class="st">&#39;SEVERITY&#39;</span>], <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>}}, data,{})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> metro_df.to_dict(orient<span class="op">=</span><span class="st">&#39;records&#39;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>severity_counts_speed <span class="op">=</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> acc, row: {<span class="op">**</span>acc, row[<span class="st">&#39;max_speed&#39;</span>]: {<span class="op">**</span>acc.get(row[<span class="st">&#39;max_speed&#39;</span>],{}), </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                row[<span class="st">&#39;SEVERITY&#39;</span>]: acc.get(row[<span class="st">&#39;max_speed&#39;</span>], {}).get(row[<span class="st">&#39;SEVERITY&#39;</span>], <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span>}}, data,{})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Upon further aggregating the above data in severity classes, at the highest speed limit (110 km/h) the number of severe crash incidents dominates across all categories.</p>
 <div id="97ae9d92" class="cell" data-execution_count="44">
@@ -5642,7 +5649,7 @@ Weekday crashes outnumber weekend crashes across all time periods. This is espec
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/cjul\.github\.io\/portfolio7\.github\.io\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
